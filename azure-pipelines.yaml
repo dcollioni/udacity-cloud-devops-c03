@@ -33,7 +33,7 @@ stages:
     - task: TerraformCLI@0
       displayName: 'terraform init'
       inputs:
-        command: init'
+        command: /usr/local/bin/terraform init'
         workingDirectory: '$(Build.SourcesDirectory)/terraform'
         environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
 
