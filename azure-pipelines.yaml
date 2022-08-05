@@ -23,7 +23,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
       - task: Bash@3
-        displayName: 'terraform init'
+        displayName: 'terraform apply'
         inputs:
           targetType: 'inline'
           script: |
@@ -31,6 +31,8 @@ stages:
             
             cd terraform
             terraform init
+            terraform plan -out main.plan
+            terraform apply main.plan
     # - task: CopyFiles@2
     #   displayName: 'Copy terraform files'
     #   inputs:
