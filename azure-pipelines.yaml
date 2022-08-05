@@ -67,6 +67,13 @@ stages:
         commandOptions: '-out main.plan'
         environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
         runAzLogin: true
+    - task: TerraformCLI@0
+      displayName: 'terraform apply'
+      inputs:
+        command: 'apply'
+        commandOptions: 'main.plan'
+        environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
+        runAzLogin: true
 
 - stage: Build
   jobs:
