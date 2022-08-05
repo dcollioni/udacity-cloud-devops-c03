@@ -26,6 +26,13 @@ stages:
       displayName: 'terraform init'
       inputs:
         command: 'init'
+        backendType: azurerm
+        backendServiceArm: '509e635b-952b-4844-9c20-a910f4b573f0'
+        backendAzureRmResourceGroupName: 'cloud-shell-storage-northeurope'
+        # backendAzureRmResourceGroupLocation: 'ukwest'
+        backendAzureRmStorageAccountName: 'csa100320020e4a6a1a'
+        backendAzureRmContainerName: 'test'
+        backendAzureRmKey: 'sp=racwdli&st=2022-08-02T13:57:10Z&se=2022-08-02T21:57:10Z&spr=https&sv=2021-06-08&sr=c&sig=2CiJM8FuXeP04OliIlUs9E6LL3nMJegzhoklHDGiFV0%3D'
         environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
         runAzLogin: true
     - task: TerraformCLI@0
