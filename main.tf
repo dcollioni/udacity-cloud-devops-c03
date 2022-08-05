@@ -17,7 +17,7 @@ provider "azurerm" {
 
 terraform {
   backend "azurerm" {
-    resource_group_name  = "${var.resource_group}"
+    resource_group_name  = "cloud-shell-storage-northeurope"
     storage_account_name = "csa100320020e4a6a1a"
     container_name       = "test"
     key                  = "sp=racwdli&st=2022-08-02T13:57:10Z&se=2022-08-02T21:57:10Z&spr=https&sv=2021-06-08&sr=c&sig=2CiJM8FuXeP04OliIlUs9E6LL3nMJegzhoklHDGiFV0%3D"
