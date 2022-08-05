@@ -2,6 +2,20 @@ name: Azure Pipelines
 variables:
   python.version: '3.7.6'
 stages:
+
+- stage: Install
+  jobs:
+  - job: Install
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformInstaller
+      displayName: install terraform'
+    - task: TerraformCLI@0
+      displayName: 'check terraform version'
+      inputs:
+        command: version
+
 - stage: Build
   jobs:
   - job: Build
