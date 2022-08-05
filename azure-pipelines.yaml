@@ -28,11 +28,22 @@ stages:
           targetType: 'inline'
           script: |
             #! /bin/bash
-            
             cd terraform
             terraform init
+      - task: Bash@3
+        displayName: 'terraform plan'
+        inputs:
+          targetType: 'inline'
+          script: |
+            #! /bin/bash
             terraform plan -out main.plan
-            terraform apply main.plan
+      - task: Bash@3
+        displayName: 'terraform apply'
+        inputs:
+          targetType: 'inline'
+          script: |
+            #! /bin/bash
+            terraform apply main.plan      
     # - task: CopyFiles@2
     #   displayName: 'Copy terraform files'
     #   inputs:
