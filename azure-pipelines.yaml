@@ -29,6 +29,11 @@ stages:
           #! /bin/bash
           cd terraform
           ls -la
+    - task: TerraformCLI@0
+      displayName: 'terraform init'
+      inputs:
+        command: init
+        environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
 
 - stage: Build
   jobs:
@@ -51,6 +56,7 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
+
 - stage: Deployment
   jobs:
   - deployment: FakeRestAPI
