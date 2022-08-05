@@ -41,38 +41,38 @@ module "network" {
   resource_type        = "NET"
 }
 
-# module "nsg-test" {
-#   source           = "./modules/networksecuritygroup"
-#   location         = "${var.location}"
-#   application_type = "${var.application_type}"
-#   resource_type    = "NSG"
-#   resource_group   = "${module.resource_group.resource_group_name}"
-#   subnet_id        = "${module.network.subnet_id_test}"
-#   address_prefix_test = "${var.address_prefix_test}"
-# }
+module "nsg-test" {
+  source              = "./modules/networksecuritygroup"
+  resource_group      = "${module.resource_group.resource_group_name}"
+  location            = "${var.location}"
+  application_type    = "${var.application_type}"
+  subnet_id           = "${module.network.subnet_id_test}"
+  address_prefix_test = "${var.address_prefix_test}"
+  resource_type       = "NSG"
+}
 
-# module "appservice" {
-#   source           = "./modules/appservice"
-#   location         = "${var.location}"
-#   application_type = "${var.application_type}"
-#   resource_type    = "AppService"
-#   resource_group   = "${module.resource_group.resource_group_name}"
-# }
+module "appservice" {
+  source           = "./modules/appservice"
+  resource_group   = "${module.resource_group.resource_group_name}"
+  location         = "${var.location}"
+  application_type = "${var.application_type}"
+  resource_type    = "AppService"
+}
 
-# module "publicip" {
-#   source           = "./modules/publicip"
-#   location         = "${var.location}"
-#   application_type = "${var.application_type}"
-#   resource_type    = "publicip"
-#   resource_group   = "${module.resource_group.resource_group_name}"
-# }
+module "publicip" {
+  source           = "./modules/publicip"
+  resource_group   = "${module.resource_group.resource_group_name}"
+  location         = "${var.location}"
+  application_type = "${var.application_type}"
+  resource_type    = "publicip"
+}
 
-# module "vm" {
-#   source           = "./modules/vm"
-#   location         = "${var.location}"
-#   application_type = "${var.application_type}"
-#   resource_type    = "VM"
-#   resource_group   = "${module.resource_group.resource_group_name}"
-#   subnet_id        = "${module.network.subnet_id_test}"
-#   public_ip_address_id = "${module.publicip.public_ip_address_id}"
-# }
+module "vm" {
+  source               = "./modules/vm"
+  resource_group       = "${module.resource_group.resource_group_name}"
+  location             = "${var.location}"
+  application_type     = "${var.application_type}"
+  subnet_id            = "${module.network.subnet_id_test}"
+  public_ip_address_id = "${module.publicip.public_ip_address_id}"
+  resource_type        = "VM"
+}
