@@ -22,17 +22,19 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          #! /bin/bash
-          cd terraform
-          ls -la
+    # - task: CopyFiles@2
+    #   displayName: 'Copy terraform files'
+    #   inputs:
+    #     sourceFolder: '$(Build.SourcesDirectory)/terraform'
+    #     targetFolder: '/usr/local/bin/terraform'
+        # sourceFolder: '$(System.ArtifactStagingDirectory)/terraform'
+        # archiveFilePatterns: '$(System.ArtifactStagingDirectory)/terraform'
+        # destinationFolder: '$(System.DefaultWorkingDirectory)/'
     - task: TerraformCLI@0
       displayName: 'terraform init'
       inputs:
-        command: init '$(Build.ArtifactStagingDirectory)/terraform'
+        command: init'
+        workingDirectory: '$(Build.SourcesDirectory)/terraform'
         environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
 
 - stage: Build
