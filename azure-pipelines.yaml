@@ -37,7 +37,7 @@ stages:
           script: |
             #! /bin/bash
             cd terraform
-            terraform plan -out main.plan
+            terraform plan
       - task: Bash@3
         displayName: 'terraform apply'
         inputs:
@@ -45,7 +45,7 @@ stages:
           script: |
             #! /bin/bash
             cd terraform
-            terraform apply main.plan      
+            terraform apply
     # - task: CopyFiles@2
     #   displayName: 'Copy terraform files'
     #   inputs:
