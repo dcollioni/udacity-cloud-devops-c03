@@ -32,8 +32,7 @@ stages:
     - task: TerraformCLI@0
       displayName: 'terraform init'
       inputs:
-        # workingDirectory: '$(System.DefaultWorkingDirectory)/'
-        rootFolder: 'terraform'
+        workingDirectory: '$(Build.ArtifactStagingDirectory)/terraform'
         command: init
         environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
 
