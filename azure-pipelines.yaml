@@ -22,30 +22,30 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-      - task: Bash@3
-        displayName: 'terraform apply'
-        inputs:
-          targetType: 'inline'
-          script: |
-            #! /bin/bash
-            cd terraform
-            terraform init
-      - task: Bash@3
-        displayName: 'terraform plan'
-        inputs:
-          targetType: 'inline'
-          script: |
-            #! /bin/bash
-            cd terraform
-            terraform plan -out=main.plan -input=false
-      - task: Bash@3
-        displayName: 'terraform apply'
-        inputs:
-          targetType: 'inline'
-          script: |
-            #! /bin/bash
-            cd terraform
-            terraform apply main.plan
+      # - task: Bash@3
+      #   displayName: 'terraform init'
+      #   inputs:
+      #     targetType: 'inline'
+      #     script: |
+      #       #! /bin/bash
+      #       cd terraform
+      #       terraform init
+      # - task: Bash@3
+      #   displayName: 'terraform plan'
+      #   inputs:
+      #     targetType: 'inline'
+      #     script: |
+      #       #! /bin/bash
+      #       cd terraform
+      #       terraform plan -out=main.plan -input=false
+      # - task: Bash@3
+      #   displayName: 'terraform apply'
+      #   inputs:
+      #     targetType: 'inline'
+      #     script: |
+      #       #! /bin/bash
+      #       cd terraform
+      #       terraform apply main.plan
     # - task: CopyFiles@2
     #   displayName: 'Copy terraform files'
     #   inputs:
@@ -54,12 +54,12 @@ stages:
         # sourceFolder: '$(System.ArtifactStagingDirectory)/terraform'
         # archiveFilePatterns: '$(System.ArtifactStagingDirectory)/terraform'
         # destinationFolder: '$(System.DefaultWorkingDirectory)/'
-    # - task: TerraformCLI@0
-    #   displayName: 'terraform init'
-    #   inputs:
-    #     command: /usr/local/bin/terraform init'
-    #     workingDirectory: '$(Build.SourcesDirectory)/terraform'
-    #     environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
+    - task: TerraformCLI@0
+      displayName: 'terraform init'
+      inputs:
+        command: 'init'
+        environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
+        runAzLogin: true
 
 - stage: Build
   jobs:
