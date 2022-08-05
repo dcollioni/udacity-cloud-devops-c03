@@ -55,10 +55,15 @@ stages:
         # archiveFilePatterns: '$(System.ArtifactStagingDirectory)/terraform'
         # destinationFolder: '$(System.DefaultWorkingDirectory)/'
     - task: TerraformCLI@0
+      displayName: 'terraform destroy'
+      inputs:
+        command: 'destroy'
+        environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
+        runAzLogin: true
+    - task: TerraformCLI@0
       displayName: 'terraform init'
       inputs:
         command: 'init'
-        commandOptions: '-reconfigure'
         environmentServiceName: '509e635b-952b-4844-9c20-a910f4b573f0'
         runAzLogin: true
     - task: TerraformCLI@0
