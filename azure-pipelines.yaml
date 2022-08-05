@@ -36,6 +36,7 @@ stages:
           targetType: 'inline'
           script: |
             #! /bin/bash
+            cd terraform
             terraform plan -out main.plan
       - task: Bash@3
         displayName: 'terraform apply'
@@ -43,6 +44,7 @@ stages:
           targetType: 'inline'
           script: |
             #! /bin/bash
+            cd terraform
             terraform apply main.plan      
     # - task: CopyFiles@2
     #   displayName: 'Copy terraform files'
