@@ -196,4 +196,4 @@ stages:
                 cd $(Pipeline.Workspace)/drop-jmeter/$(Build.BuildId)-jmeter
                 ls -la
                 
-                ~/downloads/apache-jmeter-5.5/bin/jmeter -n -t ./Udacity_Cloud_DevOps_Project_03.jmx
+                ~/downloads/apache-jmeter-5.5/bin/jmeter -n -t ./Udacity_Cloud_DevOps_Project_03.jmx -l ./results.jtl -e -o ./report
