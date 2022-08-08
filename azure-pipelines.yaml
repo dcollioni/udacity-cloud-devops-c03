@@ -100,6 +100,19 @@ stages:
               appName: 'dcollioni-app-003-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+          - task: AzureFileCopy@4
+            displayName: 'Copy Selenium tests to VM'
+            inputs:
+              SourcePath: 'selenium'
+              azureSubscription: 'azure connection'
+              Destination: 'AzureVMs'
+              storage: 'csa100320020e4a6a1a'
+              resourceGroup: 'UDACITY-RG-003'
+              ResourceFilteringMethod: 'tags'
+              MachineNames: 'udacity'
+              vmsAdminUserName: 'azureuser'
+              vmsAdminPassword: '${adminPassword}'
+              TargetPath: '$(Pipeline.Workspace)/selenium'
   - deployment: VMDeploy
     environment:
       name:  TEST
@@ -121,9 +134,9 @@ stages:
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
                 export PATH=$PATH:some/path
-          - task: AzureFileCopy@4
-            inputs:
-              sourcePath: 'selenium'
-              azureSubscription: '509e635b-952b-4844-9c20-a910f4b573f0'
-              destination: azureVMs
-              storage: 'csa100320020e4a6a1a'
+          # - task: AzureFileCopy@4
+          #   inputs:
+          #     sourcePath: 'selenium'
+          #     azureSubscription: '509e635b-952b-4844-9c20-a910f4b573f0'
+          #     destination: azureVMs
+          #     storage: 'csa100320020e4a6a1a'
