@@ -76,13 +76,9 @@ stages:
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: '**/junitReport_*.xml' 
-        # searchFolder: '$(System.DefaultWorkingDirectory)'
-        #mergeTestResults: false # Optional
-        #failTaskOnFailedTests: false # Optional
-        #testRunTitle: # Optional
-        #buildPlatform: # Optional
-        #buildConfiguration: # Optional
-        publishRunAttachments: true # Optional
+        failTaskOnFailedTests: false
+        testRunTitle: 'Postman API Tests'
+        publishRunAttachments: true
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
