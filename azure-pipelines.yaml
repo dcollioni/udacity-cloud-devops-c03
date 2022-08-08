@@ -165,6 +165,10 @@ stages:
               script: |
                 #! /bin/bash
                 
-                unzip $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium.zip -d $(Build.BuildId)-selenium
+                unzip $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium.zip -d $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium
                 cd $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium
                 ls -la
+                
+                source ~/.selenium/bin/activate
+                make install
+                make run
