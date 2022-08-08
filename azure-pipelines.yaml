@@ -70,6 +70,13 @@ stages:
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium.zip'
+    - task: ArchiveFiles@2
+      displayName: 'Archive JMeter Tests'
+      inputs:
+        rootFolderOrFile: 'jmeter'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-jmeter.zip'
     - task: Bash@3
       displayName: 'Install newman and run postman tests'
       inputs:
@@ -92,6 +99,9 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium.zip
       displayName: 'Upload Selenium Package'
       artifact: drop-selenium
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-jmeter.zip
+      displayName: 'Upload JMeter Package'
+      artifact: drop-jmeter
 
 - stage: Deployment
   jobs:
@@ -143,13 +153,8 @@ stages:
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
                 sudo apt-get install -y chromium-chromedriver
+                sudo apt install -y jmeter
                 pip3 install selenium
-          # - task: AzureFileCopy@4
-          #   inputs:
-          #     sourcePath: 'selenium'
-          #     azureSubscription: '509e635b-952b-4844-9c20-a910f4b573f0'
-          #     destination: azureVMs
-          #     storage: 'csa100320020e4a6a1a'
   - deployment: SeleniumTests
     environment:
       name:  TEST
@@ -171,4 +176,24 @@ stages:
                 
                 source ~/.selenium/bin/activate
                 make install
-                make run
+                make run > selenium_test_logs.txt
+  - deployment: JMeterTests
+    environment:
+      name:  TEST
+      resourceType: VirtualMachine
+      tags: udacity
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                
+                unzip $(Pipeline.Workspace)/drop-jmeter/$(Build.BuildId)-jmeter.zip -d $(Pipeline.Workspace)/drop-jmeter/$(Build.BuildId)-jmeter
+                cd $(Pipeline.Workspace)/drop-jmeter/$(Build.BuildId)-jmeter
+                ls -la
+                
+                jmeter -n -t ./Udacity_Cloud_DevOps_Project_03.jmx
