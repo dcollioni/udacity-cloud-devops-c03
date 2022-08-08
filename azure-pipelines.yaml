@@ -75,8 +75,8 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: './results/*.xml' 
-        #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
+        testResultsFiles: '**/junitReport_*.xml' 
+        # searchFolder: '$(System.DefaultWorkingDirectory)'
         #mergeTestResults: false # Optional
         #failTaskOnFailedTests: false # Optional
         #testRunTitle: # Optional
