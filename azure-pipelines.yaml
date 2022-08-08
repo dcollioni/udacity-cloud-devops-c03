@@ -63,6 +63,13 @@ stages:
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+    - task: ArchiveFiles@2
+      displayName: 'Archive Selenium Tests'
+      inputs:
+        rootFolderOrFile: 'selenium'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium.zip'
     - task: Bash@3
       displayName: 'Install newman and run postman tests'
       inputs:
@@ -80,8 +87,11 @@ stages:
         testRunTitle: 'Postman API Tests'
         publishRunAttachments: true
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
-      displayName: 'Upload Package'
+      displayName: 'Upload fakerestapi Package'
       artifact: drop-fakerestapi
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium.zip
+      displayName: 'Upload Selenium Package'
+      artifact: drop-selenium
 
 - stage: Deployment
   jobs:
@@ -100,19 +110,19 @@ stages:
               appName: 'dcollioni-app-003-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-          - task: AzureFileCopy@4
-            displayName: 'Copy Selenium tests to VM'
-            inputs:
-              SourcePath: 'selenium'
-              azureSubscription: 'azure connection'
-              Destination: 'AzureVMs'
-              storage: 'csa100320020e4a6a1a'
-              resourceGroup: 'UDACITY-RG-003'
-              ResourceFilteringMethod: 'tags'
-              MachineNames: 'udacity'
-              vmsAdminUserName: 'azureuser'
-              vmsAdminPassword: '${adminPassword}'
-              TargetPath: '$(Pipeline.Workspace)/selenium'
+          # - task: AzureFileCopy@4
+          #   displayName: 'Copy Selenium tests to VM'
+          #   inputs:
+          #     SourcePath: 'selenium'
+          #     azureSubscription: 'azure connection'
+          #     Destination: 'AzureVMs'
+          #     storage: 'csa100320020e4a6a1a'
+          #     resourceGroup: 'UDACITY-RG-003'
+          #     ResourceFilteringMethod: 'tags'
+          #     MachineNames: 'udacity'
+          #     vmsAdminUserName: 'azureuser'
+          #     vmsAdminPassword: '${adminPassword}'
+          #     TargetPath: '$(Pipeline.Workspace)/selenium'
   - deployment: VMDeploy
     environment:
       name:  TEST
