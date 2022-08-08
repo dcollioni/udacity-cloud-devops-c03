@@ -150,7 +150,7 @@ stages:
           #     azureSubscription: '509e635b-952b-4844-9c20-a910f4b573f0'
           #     destination: azureVMs
           #     storage: 'csa100320020e4a6a1a'
-  - deployment: Selenium Tests
+  - deployment: SeleniumTests
     environment:
       name:  TEST
       resourceType: VirtualMachine
