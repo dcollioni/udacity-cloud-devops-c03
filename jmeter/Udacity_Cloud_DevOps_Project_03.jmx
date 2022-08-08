@@ -108,7 +108,7 @@
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Variables" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="filename">/Users/Douglas/dev/dcollioni/cloud-devops/udacity-cloud-devops-c03/jmeter/Udacity_Cloud_DevOps_Project_03_Variables.csv</stringProp>
+          <stringProp name="filename">Udacity_Cloud_DevOps_Project_03_Variables.csv</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>
@@ -151,7 +151,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">/Users/Douglas/dev/dcollioni/cloud-devops/udacity-cloud-devops-c03/jmeter/Udacity_Cloud_DevOps_Project_03_Endurance_Results.csv</stringProp>
+          <stringProp name="filename">Udacity_Cloud_DevOps_Project_03_Endurance_Results.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -251,7 +251,7 @@
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Variables" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="filename">/Users/Douglas/dev/dcollioni/cloud-devops/udacity-cloud-devops-c03/jmeter/Udacity_Cloud_DevOps_Project_03_Variables.csv</stringProp>
+          <stringProp name="filename">Udacity_Cloud_DevOps_Project_03_Variables.csv</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>
@@ -294,7 +294,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">/Users/Douglas/dev/dcollioni/cloud-devops/udacity-cloud-devops-c03/jmeter/Udacity_Cloud_DevOps_Project_03_Stress_Results.csv</stringProp>
+          <stringProp name="filename">Udacity_Cloud_DevOps_Project_03_Stress_Results.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
