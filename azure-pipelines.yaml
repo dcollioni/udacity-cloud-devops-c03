@@ -133,28 +133,28 @@ stages:
           #     vmsAdminUserName: 'azureuser'
           #     vmsAdminPassword: '${adminPassword}'
           #     TargetPath: '$(Pipeline.Workspace)/selenium'
-  - deployment: VMDeploy
-    environment:
-      name:  TEST
-      resourceType: VirtualMachine
-      tags: udacity
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: Bash@3
-            inputs:
-              targetType: 'inline'
-              script: |
-                #! /bin/bash
+  # - deployment: VMDeploy
+  #   environment:
+  #     name:  TEST
+  #     resourceType: VirtualMachine
+  #     tags: udacity
+  #   strategy:
+  #     runOnce:
+  #       deploy:
+  #         steps:
+  #         - task: Bash@3
+  #           inputs:
+  #             targetType: 'inline'
+  #             script: |
+  #               #! /bin/bash
                 
-                sudo apt-get upgrade -y
-                sudo apt-get install python3-pip -y
-                sudo apt-get install unzip -y
-                sudo apt-get install -y chromium-browser
-                sudo apt-get install -y chromium-chromedriver
-                sudo apt install -y jmeter
-                pip3 install selenium
+  #               sudo apt-get upgrade -y
+  #               sudo apt-get install python3-pip -y
+  #               sudo apt-get install unzip -y
+  #               sudo apt-get install -y chromium-browser
+  #               sudo apt-get install -y chromium-chromedriver
+  #               sudo apt install -y jmeter
+  #               pip3 install selenium
   - deployment: SeleniumTests
     environment:
       name:  TEST
@@ -170,11 +170,15 @@ stages:
               script: |
                 #! /bin/bash
 
+                sudo apt-get upgrade -y
                 sudo add-apt-repository ppa:deadsnakes/ppa -y
                 sudo apt update
+                sudo apt-get install unzip -y
                 sudo apt install python3.7 -y
                 sudo apt install virtualenv -y
                 sudo apt install make -y
+                sudo apt-get install -y chromium-browser
+                sudo apt-get install -y chromium-chromedriver
                 virtualenv -p python3.7 ~/.selenium
                 
                 unzip $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium.zip -d $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium
