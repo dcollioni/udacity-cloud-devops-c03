@@ -169,6 +169,12 @@ stages:
               targetType: 'inline'
               script: |
                 #! /bin/bash
+
+                sudo add-apt-repository ppa:deadsnakes/ppa -y
+                sudo apt update
+                sudo apt install python3.7 -y
+                sudo apt install virtualenv -y
+                virtualenv -p python3.7 ~/.selenium
                 
                 unzip $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium.zip -d $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium
                 cd $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium
@@ -191,6 +197,12 @@ stages:
               targetType: 'inline'
               script: |
                 #! /bin/bash
+
+                cd ~
+                mkdir downloads
+                cd downloads
+                wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.zip
+                unzip apache-jmeter-5.5.zip
                 
                 unzip $(Pipeline.Workspace)/drop-jmeter/$(Build.BuildId)-jmeter.zip -d $(Pipeline.Workspace)/drop-jmeter/$(Build.BuildId)-jmeter
                 cd $(Pipeline.Workspace)/drop-jmeter/$(Build.BuildId)-jmeter
