@@ -70,8 +70,8 @@ stages:
         script: |
           #! /bin/bash
           npm install -g newman
-          newman run ./postman/Starter_APIs_Data_Validation.postman_collection.json -e ./postman/Starter_APIs.postman_environment.json --reporters cli,junit --reporter-junit-export ./results/junitReport_data_validation.xml --delay-request 5000
-          newman run ./postman/Starter_APIs_Regression.postman_collection.json -e ./postman/Starter_APIs.postman_environment.json --reporters cli,junit --reporter-junit-export ./results/junitReport_regression.xml --delay-request 5000
+          newman run ./postman/Starter_APIs_Data_Validation.postman_collection.json -e ./postman/Starter_APIs.postman_environment.json --reporters cli,junit --reporter-junit-export ./results/junitReport_data_validation.xml --delay-request 5000 --suppress-exit-code
+          newman run ./postman/Starter_APIs_Regression.postman_collection.json -e ./postman/Starter_APIs.postman_environment.json --reporters cli,junit --reporter-junit-export ./results/junitReport_regression.xml --delay-request 5000 --suppress-exit-code
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
