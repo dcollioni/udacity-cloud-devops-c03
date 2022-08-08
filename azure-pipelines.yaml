@@ -142,11 +142,29 @@ stages:
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
+                sudo apt-get install -y chromium-chromedriver
                 pip3 install selenium
-                export PATH=$PATH:some/path
           # - task: AzureFileCopy@4
           #   inputs:
           #     sourcePath: 'selenium'
           #     azureSubscription: '509e635b-952b-4844-9c20-a910f4b573f0'
           #     destination: azureVMs
           #     storage: 'csa100320020e4a6a1a'
+  - deployment: Selenium Tests
+    environment:
+      name:  TEST
+      resourceType: VirtualMachine
+      tags: udacity
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                
+                unzip $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium.zip -d $(Build.BuildId)-selenium
+                cd $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium
+                ls -la
