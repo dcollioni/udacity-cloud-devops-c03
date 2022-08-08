@@ -63,6 +63,15 @@ stages:
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+    - task: Bash@3
+      displayName: 'Install newman and run postman tests'
+      inputs:
+        targetType: 'inline'
+        script: |
+          #! /bin/bash
+          npm install -g newman
+          newman run ./postman/Starter_APIs_Data_Validation.postman_collection.json -e ./postman/Starter_APIs.postman_environment.json --reporters cli,junit --reporter-junit-export ./results/junitReport_data_validation.xml --delay-request 5000
+          newman run ./postman/Starter_APIs_Regression.postman_collection.json -e ./postman/Starter_APIs.postman_environment.json --reporters cli,junit --reporter-junit-export ./results/junitReport_regression.xml --delay-request 5000
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
