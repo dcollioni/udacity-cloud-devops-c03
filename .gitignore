@@ -3,3 +3,6 @@
 *.tfstate
 *.tfstate.backup
 *.plan
+.DS_Store
+_zip/
+*.zip
