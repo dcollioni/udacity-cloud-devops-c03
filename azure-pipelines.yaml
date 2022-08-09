@@ -189,6 +189,7 @@ stages:
                 make install
                 make run > selenium_test_logs.txt
   - deployment: JMeterTests
+    dependsOn: FakeRestAPI
     environment:
       name:  TEST
       resourceType: VirtualMachine
@@ -204,14 +205,20 @@ stages:
                 #! /bin/bash
 
                 sudo apt install default-jre
-                cd ~
-                mkdir downloads
-                cd downloads
-                wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.zip
-                unzip apache-jmeter-5.5.zip
+
+                JMETER_FILE=~/downloads/apache-jmeter-5.5/bin/jmeter
+                if [ -f "$JMETER_FILE" ]; then
+                    echo "$JMETER_FILE exists."
+                else 
+                    echo "$JMETER_FILE does not exist. Installing..."
+                    mkdir ~/downloads
+                    cd ~/downloads
+                    wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.zip
+                    unzip apache-jmeter-5.5.zip
+                fi
                 
                 unzip $(Pipeline.Workspace)/drop-jmeter/$(Build.BuildId)-jmeter.zip -d $(Pipeline.Workspace)/drop-jmeter/$(Build.BuildId)-jmeter
                 cd $(Pipeline.Workspace)/drop-jmeter/$(Build.BuildId)-jmeter
                 ls -la
                 
-                ~/downloads/apache-jmeter-5.5/bin/jmeter -n -t ./Udacity_Cloud_DevOps_Project_03.jmx -l ./results.jtl -e -o ./report
+                JVM_ARGS="-Xms128m -Xmx256m" ~/downloads/apache-jmeter-5.5/bin/jmeter -n -t ./Udacity_Cloud_DevOps_Project_03.jmx -l ./results.jtl -e -o ./report
