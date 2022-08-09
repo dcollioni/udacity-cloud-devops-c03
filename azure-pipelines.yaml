@@ -120,41 +120,6 @@ stages:
               appName: 'dcollioni-app-003-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-          # - task: AzureFileCopy@4
-          #   displayName: 'Copy Selenium tests to VM'
-          #   inputs:
-          #     SourcePath: 'selenium'
-          #     azureSubscription: 'azure connection'
-          #     Destination: 'AzureVMs'
-          #     storage: 'csa100320020e4a6a1a'
-          #     resourceGroup: 'UDACITY-RG-003'
-          #     ResourceFilteringMethod: 'tags'
-          #     MachineNames: 'udacity'
-          #     vmsAdminUserName: 'azureuser'
-          #     vmsAdminPassword: '${adminPassword}'
-          #     TargetPath: '$(Pipeline.Workspace)/selenium'
-  # - deployment: VMDeploy
-  #   environment:
-  #     name:  TEST
-  #     resourceType: VirtualMachine
-  #     tags: udacity
-  #   strategy:
-  #     runOnce:
-  #       deploy:
-  #         steps:
-  #         - task: Bash@3
-  #           inputs:
-  #             targetType: 'inline'
-  #             script: |
-  #               #! /bin/bash
-                
-  #               sudo apt-get upgrade -y
-  #               sudo apt-get install python3-pip -y
-  #               sudo apt-get install unzip -y
-  #               sudo apt-get install -y chromium-browser
-  #               sudo apt-get install -y chromium-chromedriver
-  #               sudo apt install -y jmeter
-  #               pip3 install selenium
   - deployment: SeleniumTests
     environment:
       name:  TEST
@@ -188,6 +153,7 @@ stages:
                 source ~/.selenium/bin/activate
                 make install
                 make run > selenium_test_logs.txt
+                cp selenium_test_logs.txt ~/logs/$(Build.BuildId)-selenium_test_logs.txt
   - deployment: JMeterTests
     dependsOn: FakeRestAPI
     environment:
