@@ -154,15 +154,17 @@ stages:
                 make install
                 make run > selenium_test_logs.txt
 
-                LOGS_FOLDER=~/logs
-                if [ -f "$LOGS_FOLDER" ]; then
-                    echo "$LOGS_FOLDER exists."
+                LOGS_FILE=~/logs/selenium_test_logs.txt
+                if [ -f "$LOGS_FILE" ]; then
+                    echo "$LOGS_FILE exists."
                 else 
-                    echo "$LOGS_FOLDER does not exist. Creating..."
+                    echo "$LOGS_FILE does not exist. Creating..."
                     mkdir ~/logs
+                    touch ~/logs/selenium_test_logs.txt
                 fi
 
                 cat ./selenium_test_logs.txt >> ~/logs/selenium_test_logs.txt
+                cat ./selenium_test_logs.txt
   - deployment: JMeterTests
     dependsOn: FakeRestAPI
     environment:
