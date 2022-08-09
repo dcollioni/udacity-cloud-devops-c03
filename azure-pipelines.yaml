@@ -161,7 +161,7 @@ stages:
                     echo "$LOGS_FOLDER does not exist. Creating..."
                     mkdir ~/logs
                 fi
-                
+
                 cp selenium_test_logs.txt ~/logs/$(Build.BuildId)-selenium_test_logs.txt
   - deployment: JMeterTests
     dependsOn: FakeRestAPI
@@ -179,7 +179,7 @@ stages:
               script: |
                 #! /bin/bash
 
-                sudo apt install default-jre
+                sudo apt install default-jre -y
 
                 JMETER_FILE=~/downloads/apache-jmeter-5.5/bin/jmeter
                 if [ -f "$JMETER_FILE" ]; then
