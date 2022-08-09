@@ -28,15 +28,15 @@ module "network" {
   resource_type        = "NET"
 }
 
-# module "nsg-test" {
-#   source              = "./modules/networksecuritygroup"
-#   resource_group      = "${module.resource_group.resource_group_name}"
-#   location            = "${var.location}"
-#   application_type    = "${var.application_type}"
-#   subnet_id           = "${module.network.subnet_id_test}"
-#   address_prefix_test = "${var.address_prefix_test}"
-#   resource_type       = "NSG"
-# }
+module "nsg-test" {
+  source              = "./modules/networksecuritygroup"
+  resource_group      = "${module.resource_group.resource_group_name}"
+  location            = "${var.location}"
+  application_type    = "${var.application_type}"
+  subnet_id           = "${module.network.subnet_id_test}"
+  address_prefix_test = "${var.address_prefix_test}"
+  resource_type       = "NSG"
+}
 
 module "appservice" {
   source           = "./modules/appservice"

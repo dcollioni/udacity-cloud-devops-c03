@@ -162,7 +162,7 @@ stages:
                     mkdir ~/logs
                 fi
 
-                cp selenium_test_logs.txt ~/logs/$(Build.BuildId)-selenium_test_logs.txt
+                cat ./selenium_test_logs.txt >> ~/logs/selenium_test_logs.txt
   - deployment: JMeterTests
     dependsOn: FakeRestAPI
     environment:
