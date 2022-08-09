@@ -1,19 +1,6 @@
 provider "azurerm" {
-  # tenant_id       = "${var.tenant_id}"
-  # subscription_id = "${var.subscription_id}"
-  # client_id       = "${var.client_id}"
-  # client_secret   = "${var.client_secret}"
   features {}
 }
-
-# terraform {
-#   backend "azurerm" {
-#     storage_account_name = ""
-#     container_name       = ""
-#     key                  = ""
-#     access_key           = ""
-#   }
-# }
 
 terraform {
   backend "azurerm" {
@@ -41,15 +28,15 @@ module "network" {
   resource_type        = "NET"
 }
 
-module "nsg-test" {
-  source              = "./modules/networksecuritygroup"
-  resource_group      = "${module.resource_group.resource_group_name}"
-  location            = "${var.location}"
-  application_type    = "${var.application_type}"
-  subnet_id           = "${module.network.subnet_id_test}"
-  address_prefix_test = "${var.address_prefix_test}"
-  resource_type       = "NSG"
-}
+# module "nsg-test" {
+#   source              = "./modules/networksecuritygroup"
+#   resource_group      = "${module.resource_group.resource_group_name}"
+#   location            = "${var.location}"
+#   application_type    = "${var.application_type}"
+#   subnet_id           = "${module.network.subnet_id_test}"
+#   address_prefix_test = "${var.address_prefix_test}"
+#   resource_type       = "NSG"
+# }
 
 module "appservice" {
   source           = "./modules/appservice"
